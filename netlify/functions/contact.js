@@ -34,7 +34,7 @@ exports.handler = async (event) => {
     return err(405, "Method not allowed");
   }
 
-  const WEBHOOK_URL = "https://discord.com/api/webhooks/1415993093806620763/RA9b6h0Wt6l2a2LRrhQEoKzgdYh6DHMFAUYJrZoN-iPP4la88bTz8CdcP8BDSn-gAT4Q";
+  const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
   if (!WEBHOOK_URL) return err(500, "Server not configured");
 
   let data;
@@ -66,7 +66,7 @@ exports.handler = async (event) => {
     const res = await fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: "Portfolio Bot", embeds }),
+      body: JSON.stringify({ username: "Website Bot", embeds }),
     });
 
     if (!res.ok) {
