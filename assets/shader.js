@@ -6,14 +6,15 @@
   const ctx = canvas.getContext("2d", { alpha: true });
   const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
   let W = 0, H = 0;
+const smallScreen = window.matchMedia("(max-width: 480px)").matches;
 
   // ----- parameters you can tune -----
-  const PCOUNT = 360;           // number of particles
+const PCOUNT = smallScreen ? 60 : 360;        // fewer particles on small screens
   const SPRING = 0.0045;       // pull back to home (higher = snappier return)
   const FRICTION = 0.985;      // velocity damping
   const DRIFT = 0.18;          // random per-frame jitter (keeps field lively)
   const MAX_SPEED = 1.0;       // clamp particle speed (px/frame @ dpr=1)
-  const MOUSE_RADIUS = 160;    // influence radius in CSS pixels
+const MOUSE_RADIUS = smallScreen ? 120 : 160; // smaller influence zone on phones
   const MOUSE_STRENGTH = 0.03; // how strongly nearby particles are pulled
   const LINK_DIST = 140;       // max distance for connecting lines (px)
   // -----------------------------------
