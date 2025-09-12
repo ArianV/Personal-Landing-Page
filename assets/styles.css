@@ -1,0 +1,180 @@
+/* ===== Base / Reset ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { font-size:16px; -webkit-text-size-adjust:100%; scroll-behavior: smooth; }
+
+:root {
+  --bg:#0a0a0a;
+  --fg:#f5f5f5;
+  --muted:#cfcfcf;
+  --border:#ffffff12;
+  --accent:#6a3df0;
+  --accent-2:#8a5bff;
+  --radius:12px;
+  --container:1100px;
+  --line:1.75;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s6:3rem;
+}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  line-height:var(--line);
+}
+
+h1,h2,h3{ line-height:1.2; margin:0 0 var(--s2) }
+h1{ font-family:"Space Grotesk",Inter,sans-serif; font-size:clamp(2rem,3.5vw,3rem) }
+h2{ font-family:"Space Grotesk",Inter,sans-serif; font-size:clamp(1.5rem,2.5vw,2rem) }
+h3{ font-size:clamp(1.125rem,2vw,1.25rem) }
+p,ul,ol{ margin:0 0 var(--s2); color:var(--muted) }
+a{ color:var(--fg); text-decoration:underline; text-underline-offset:2px }
+a:hover{ color:#fff }
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;       /* pin to viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;          /* set an explicit height */
+  z-index: 2000;         /* above everything, including bg canvas */
+  background: rgba(10,10,10,0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .container{
+  display:flex; justify-content:space-between; align-items:center; padding-block:var(--s2); padding-left: 24px; padding-right: 24px;
+}
+.site-nav ul{ display:flex; gap:var(--s3); list-style:none; margin:0; padding:0 }
+/* Base link styles */
+.site-nav a {
+  position: relative; /* needed for underline positioning */
+  text-decoration: none;
+  color: var(--muted);
+  border-bottom: none; /* remove old border underline */
+  padding: .25rem .125rem;
+  transition: color .2s ease, text-shadow .2s ease;
+}
+
+/* Active + hover still glow */
+.site-nav a:hover,
+.site-nav a:focus,
+.site-nav .is-active {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(138,91,255,.35);
+}
+
+/* Futuristic underline effect */
+.site-nav .is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* adjust to sit under text */
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    var(--accent-2),
+    var(--accent)
+  );
+  background-size: 200% 100%;
+  animation: underline-glow 2s linear infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(138,91,255,.6);
+}
+
+/* Shimmer animation */
+@keyframes underline-glow {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.site-title { font-size: 1.125rem; margin: 0; }
+.site-title a { text-decoration: none; }
+
+/* ===== Hero ===== */
+/* Full-page background canvas */
+.bg-canvas{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;   /* don't block clicks */
+  z-index: 0;             /* IMPORTANT: not -1 */
+}
+
+/* Offset the content so it doesn't slide under the fixed header */
+main {
+  margin-top: 64px;      /* match header height */
+}
+
+/* Ensure nothing higher accidentally covers it */
+.bg-canvas { z-index: 0; }
+main, footer { position: relative; z-index: 1; }
+.site-header { position: fixed; z-index: 2000; } /* re-assert */
+
+.hero{ position:relative; min-height:80vh; display:grid; place-items:center; overflow:hidden; border-bottom:1px solid var(--border) }
+.hero-canvas{ position:absolute; inset:0; width:100%; height:100%; pointer-events: none; }
+.hero-inner{ position:relative; z-index:1; text-align:center; padding:var(--s6) var(--s4) }
+.hero h1 .accent{ color:#fff; text-shadow:0 0 24px rgba(138,91,255,.35) }
+.cta{ display:inline-flex; margin-top:var(--s3); padding:.8rem 1.2rem; border-radius:999px; border:1px solid var(--border); background:#0f0f12; text-decoration:none; transition:.2s }
+.cta:hover{ border-color:var(--accent); box-shadow:0 0 24px rgba(138,91,255,.25); transform:translateY(-1px) }
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce){
+  .hero{ background:radial-gradient(1200px 800px at 50% 30%, #17151f 0, #0a0a0a 60%); }
+  .hero-canvas{ display:none }
+}
+
+/* ===== Projects / Slider ===== */
+.slider{ width:min(100%,960px); aspect-ratio:16/9; height:clamp(320px,60vh,720px); position:relative; border-radius:18px; overflow:hidden; background:#111525; box-shadow:0 10px 30px rgba(0,0,0,.35) }
+.slide{ position:absolute; inset:0; opacity:0; transition:opacity .5s ease }
+.slide.is-active{ opacity:1 }
+.slide img{ width:100%; height:100%; object-fit:cover }
+.overlay{ position:absolute; inset:auto 16px 16px 16px; background:rgba(0,0,0,.45); padding:16px 18px; border-radius:14px; backdrop-filter:blur(6px) }
+.dots{ position:absolute; left:0; right:0; bottom:14px; display:flex; justify-content:center; gap:10px }
+.dot{ width:12px; height:12px; border-radius:50%; border:0; background:#9aa3b2; cursor:pointer }
+.dot[aria-selected="true"]{ background:var(--accent) }
+
+/* ===== About ===== */
+#about .container{ display:grid; gap:var(--s4) }
+.profile{ display:grid; justify-items:center; gap:var(--s1) }
+.profile img{ width:140px; height:140px; object-fit:cover; border-radius:50%; box-shadow:0 6px 24px rgba(0,0,0,.35); border:1px solid var(--border) }
+
+/* ===== Skills ===== */
+#skills .skill + .skill{ margin-top:var(--s3) }
+#skills progress{ width:100%; height:10px; appearance:none; padding-left: 450px; padding-right: 450px; }
+#skills progress::-webkit-progress-bar{ background:#111; border-radius:999px }
+#skills progress::-webkit-progress-value{ background:var(--accent); border-radius:999px }
+#skills progress::-moz-progress-bar{ background:var(--accent); border-radius:999px }
+
+/* ===== Footer ===== */
+.site-footer{ border-top:1px solid var(--border); padding-block:var(--s4) }
+.site-footer .container{ display:grid; gap:var(--s2); justify-items:center; text-align:center }
+.social-links ul{ display:flex; gap:var(--s3); list-style:none; margin:0; padding:0 }
+.social-links a{ display:inline-flex; width:40px; height:40px; border-radius:50%; border:1px solid var(--border); align-items:center; justify-content:center; transition:.2s }
+.social-links a:hover{ border-color:var(--accent); box-shadow:0 0 12px rgba(138,91,255,.35) }
+.social-links i{ font-size:1.1rem }
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.container {
+    text-align: center;
+}
+
+#projects {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 75px;
+}

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arian Vahdat — Personal Homepage</title>
+  <meta name="description" content="Personal homepage and portfolio of Arian Vahdat.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="top"></div>
+  <canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Header / Navigation -->
+  <header id="top" class="site-header" role="banner">
+    <div class="container">
+      <h1 class="site-title"><a href="#top">Arian Vahdat</a></h1>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#projects" class="is-active">Projects</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-inner container">
+      <h1><span class="accent">Arian Vahdat</span><br/> Aspiring Software Engineer</h1>
+      <p>I build responsive web experiences, game mods, and tools that blend creative polish with performance.</p>
+      <a class="cta" href="#projects">See Projects</a>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <main id="main" tabindex="-1">
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 id="projects-title">Projects</h2>
+
+        <main class="slider" data-slider>
+          <section class="slide is-active" data-slide>
+            <img src="images/gtavexample.jpg" alt="one">
+            <div class="overlay"><h2>GTA V - Hitman</h2><p>Interactive GTA V mod which allows users to start dynamic missions accross the game map.</p></div>
+          </section>
+          <section class="slide" data-slide>
+            <img src="images/nitroexample.png" alt="two">
+            <div class="overlay"><h2>Schedule I - Nitro</h2><p>Simple modification which adds Nitrous to the already in game vehicles with dynamic sound and visuals to support it.</p></div>
+          </section>
+          <nav class="dots">
+            <button class="dot" aria-selected="true" data-dot="0"></button>
+            <button class="dot" aria-selected="false" data-dot="1"></button>
+          </nav>
+        </main>
+
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title">About Me</h2>
+        <figure class="profile">
+          <img src="images/pfp.jpg" alt="Portrait of Arian Vahdat smiling" width="200" height="200">
+          <figcaption>Arian Vahdat</figcaption>
+        </figure>
+        <p>
+          Hi! I’m <strong>Arian Vahdat</strong>, a passionate developer and creative thinker. 
+          I enjoy building interactive web experiences, developing mods, and experimenting with 
+          both code and design. Outside of coding, I love music, art, and sharing ideas.
+        </p>
+        <p>
+          <a href="files/resume.pdf" target="_blank" rel="noopener noreferrer">View My Résumé</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 id="skills-title" style="padding: 30px;">Skills</h2>
+        <article class="skill">
+          <h3>HTML / CSS</h3>
+          <p>Building structured, semantic, and accessible webpages.</p>
+          <progress value="75" max="100">75%</progress>
+        </article>
+        <article class="skill">
+          <h3>Lua</h3>
+          <p>Designing modifications for games such as GTA V.</p>
+          <progress value="85" max="100">85%</progress>
+        </article>
+        <article class="skill">
+          <h3>JavaScript</h3>
+          <p>Adding interactivity, animations, and dynamic features to websites.</p>
+          <progress value="95" max="100">95%</progress>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>© 2025 Arian Vahdat. All rights reserved.</p>
+      <nav class="social-links" aria-label="Social media">
+        <ul>
+          <li>
+            <a href="https://www.linkedin.com/in/arian-vahdat-151a65268" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin" aria-hidden="true"></i>
+              <span class="sr-only">LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/lilfoaf" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              <span class="sr-only">Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/slideshow.js" defer></script>
+  <script src="assets/shader.js" defer></script>
+</body>
+</html>
