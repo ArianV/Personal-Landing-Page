@@ -178,3 +178,48 @@ h2 {
     display: flex;
     margin: 75px;
 }
+
+/* ===== Contact ===== */
+#contact {
+  padding-top: 100px;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: var(--s4) auto;
+  display: grid;
+  gap: var(--s3);
+  text-align: left;
+}
+
+.contact-form .form-group {
+  display: grid;
+  gap: var(--s1);
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #111;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(138, 91, 255, 0.35);
+}
+
+.contact-form button.cta {
+  justify-self: start;
+}
