@@ -26,8 +26,8 @@
       </nav>
     </div>
   </footer>
-  <script src="/arian/public/assets/slideshow.js" defer></script>
-  <script src="/arian/public/assets/shader.js" defer></script>
-  <script src="/arian/public/assets/contact.js" defer></script>
+  <script src="/assets/slideshow.js" defer></script>
+  <script src="/assets/shader.js" defer></script>
+  <script src="/assets/contact.js" defer></script>
 </body>
 </html>
