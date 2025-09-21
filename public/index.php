@@ -4,7 +4,14 @@ require __DIR__ . '/../vendor/autoload.php';
 use Slim\Factory\AppFactory;
 
 $app = AppFactory::create();
-$app->setBasePath('/arian/public');
+
+// Don't hard-code a base path. In environments where your app is served
+// from a sub-path set the BASE_PATH env var (for example: /arian/public).
+// Otherwise leave it unset so Slim uses the default root path.
+$basePath = getenv('BASE_PATH');
+if ($basePath && is_string($basePath) && $basePath !== '') {
+    $app->setBasePath($basePath);
+}
 
 // Home route
 $app->get('/', function ($request, $response, $args) {

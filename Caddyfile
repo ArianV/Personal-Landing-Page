@@ -1,0 +1,9 @@
+:8080
+root * /srv/app/public
+
+# Try file then rewrite to front controller
+try_files {path} /index.php{uri}
+
+php_fastcgi unix//var/run/frankenphp.sock
+
+file_server
