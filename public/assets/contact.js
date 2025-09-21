@@ -9,15 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const data = Object.fromEntries(new FormData(form).entries());
     try {
-      const res = await fetch("/.netlify/functions/contact", {
+      const res = await fetch("/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (!res.ok) {
-        const { error } = await res.json().catch(() => ({ error: "Unknown error" }));
-        status.textContent = `Error: ${error}`;
+        // Try to parse JSON error from response
+        let errorText = `HTTP ${res.status}`;
+        try {
+          const body = await res.json();
+          if (body && body.error) errorText = body.error;
+        } catch (e) {
+          const text = await res.text().catch(() => '');
+          if (text) errorText = text;
+        }
+        status.textContent = `Error: ${errorText}`;
         return;
       }
 

@@ -43,4 +43,82 @@ $app->get('/contact', function ($request, $response, $args) {
     return $response;
 });
 
+// Contact form submission endpoint for deployed environments (forwards to Discord webhook)
+$app->post('/contact', function ($request, $response, $args) {
+    $body = (string) $request->getBody();
+    $data = json_decode($body, true);
+    if (!is_array($data)) {
+        // If body wasn't JSON, attempt to parse form-encoded body
+        $data = $request->getParsedBody();
+        if (!is_array($data)) {
+            $payload = ['error' => 'Invalid request body'];
+            $response->getBody()->write(json_encode($payload));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+        }
+    }
+
+    $website = isset($data['website']) ? trim($data['website']) : '';
+    $name = isset($data['name']) ? trim($data['name']) : '';
+    $email = isset($data['email']) ? trim($data['email']) : '';
+    $message = isset($data['message']) ? trim($data['message']) : '';
+
+    if ($website !== '') {
+        $payload = ['error' => 'Bot detected'];
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+    if ($name === '' || $email === '' || $message === '') {
+        $payload = ['error' => 'Missing fields'];
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
+    $webhook = getenv('DISCORD_WEBHOOK_URL');
+    if (!$webhook) {
+        $payload = ['error' => 'Server not configured'];
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+    }
+
+    $embeds = [[
+        'title' => '📨 New Contact Form Submission',
+        'color' => 7000000,
+        'fields' => [
+            ['name' => 'Name', 'value' => $name, 'inline' => true],
+            ['name' => 'Email', 'value' => $email, 'inline' => true],
+            ['name' => 'Message', 'value' => $message],
+        ],
+        'timestamp' => date('c'),
+    ]];
+
+    $payload = json_encode(['username' => 'Website Bot', 'embeds' => $embeds]);
+
+    // send to Discord webhook using cURL
+    $ch = curl_init($webhook);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+    $result = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlErr = curl_error($ch);
+    curl_close($ch);
+
+    if ($result === false) {
+        $payload = ['error' => 'Failed to reach Discord'];
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(502);
+    }
+    if ($httpCode < 200 || $httpCode >= 300) {
+        $payload = ['error' => "Discord error: HTTP {$httpCode} - {$result}"];
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus($httpCode ?: 502);
+    }
+
+    $response->getBody()->write(json_encode(['status' => 'sent']));
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+});
+
 $app->run();
