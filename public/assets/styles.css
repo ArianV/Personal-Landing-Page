@@ -203,6 +203,8 @@ main, footer{ position:relative; z-index:1 }
 /* Safer gutters on very small screens */
 @media (max-width:480px){
   .container{ width:min(100% - 2*var(--s2), var(--container)) }
+  /* make overlay more compact on very small screens */
+  .overlay{ font-size:.9rem; padding:10px 12px; max-height:40vh }
 }
 
 /* Header / nav: compact on phones */
@@ -240,7 +242,13 @@ main, footer{ position:relative; z-index:1 }
 @media (max-width:600px){
   #projects{ margin:32px 0; display:block }
   .slider{ height:46vh; border-radius:12px; }
-  .overlay{ inset:auto 12px 12px 12px; font-size:.95rem }
+  .overlay{
+    inset:auto 12px 12px 12px; 
+    font-size:.95rem;
+    max-height:42vh; /* don't cover most of the viewport */
+    overflow:auto; /* allow scrolling when content is long */
+    padding:12px 14px;
+  }
   .dot{ width:10px; height:10px }
 }
 
