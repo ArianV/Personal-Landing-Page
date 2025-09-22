@@ -88,7 +88,7 @@ main, footer{ position:relative; z-index:1 }
 .hero h1 .accent{ color:#fff; text-shadow:0 0 24px rgba(138,91,255,.35) }
 .cta{
   display:inline-flex; margin-top:var(--s3); padding:.8rem 1.2rem;
-  border-radius:999px; border:1px solid var(--border); background:#0f0f12; text-decoration:none; transition:.2s;
+  border-radius:999px; border:1px solid var(--border); background:#8a4eff; text-decoration:none; transition:.2s;
 }
 .cta:hover{ border-color:var(--accent); box-shadow:0 0 24px rgba(138,91,255,.25); transform:translateY(-1px) }
 
