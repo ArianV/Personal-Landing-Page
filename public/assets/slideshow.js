@@ -163,6 +163,60 @@ document.addEventListener('DOMContentLoaded', () => {
         slide.tabIndex = -1;
       }
     });
+
+    // -------------------------------
+    // Auto-advance (autoplay)
+    // -------------------------------
+    const AUTO_MS = 5000; // 5 seconds
+    let _autoTimer = null;
+
+    function startAuto() {
+      if (_autoTimer) return;
+      if (!slides || slides.length <= 1) return;
+      _autoTimer = setInterval(() => {
+        // rely on setActive's guards
+        try { setActive(index + 1, 1); } catch (e) { /* ignore */ }
+      }, AUTO_MS);
+    }
+
+    function stopAuto() {
+      if (!_autoTimer) return;
+      clearInterval(_autoTimer);
+      _autoTimer = null;
+    }
+
+    function resetAuto() {
+      stopAuto();
+      // small delay to avoid immediate flip when user clicked
+      setTimeout(startAuto, 300);
+    }
+
+    // Pause when user interacts (hover or focus) and resume afterwards
+    sliderRoot.addEventListener('mouseenter', stopAuto);
+    sliderRoot.addEventListener('mouseleave', (e) => { startAuto(); });
+    sliderRoot.addEventListener('focusin', stopAuto);
+    sliderRoot.addEventListener('focusout', (e) => {
+      const related = e.relatedTarget;
+      if (!related || !sliderRoot.contains(related)) startAuto();
+    });
+
+    // Pause while tab is in background
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAuto(); else startAuto();
+    });
+
+    // Reset autoplay when user navigates manually
+    if (leftArrow) leftArrow.addEventListener('click', resetAuto);
+    if (rightArrow) rightArrow.addEventListener('click', resetAuto);
+    sliderRoot.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') resetAuto();
+    });
+
+    // Start autoplay
+    startAuto();
+
+    // Cleanup on unload
+    window.addEventListener('beforeunload', stopAuto);
   }
 
   // -------------------------------

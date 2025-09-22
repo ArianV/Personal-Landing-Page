@@ -9,15 +9,15 @@
           <a href="https://plugb.ink/" target="_blank" rel="noopener noreferrer">
             <div class="overlay">
               <h2>PlugBio</h2>
-              <p>Song link collection service for musicians to use to promote their content.</p>
+              <p>PlugBio is a music-focused landing-page platform I built that lets artists create sleek, shareable pages for their songs. It includes user accounts, customizable artist profiles, dynamic SEO/Open Graph previews for social sharing, and built-in analytics so creators can track page views and referrals.</p>
             </div>
           </a>
         </li>
   <li class="slide" tabindex="0" aria-label="Schedule I - Nitro project">
-          <img src="images/nitroexample.png" alt="Schedule I - Nitro project preview">
-          <a href="https://www.gta5-mods.com/scripts/schedule-i-nitro" target="_blank" rel="noopener noreferrer">
+          <img src="https://i.imgur.com/uEHlwSx.png" alt="Schedule I Nitro project preview">
+          <a href="https://thunderstore.io/c/schedule-i/p/Foaf0/VNitro" target="_blank" rel="noopener noreferrer">
             <div class="overlay">
-              <h2>Schedule I - Nitro</h2>
+              <h2>Nitro Mod - Schedule I</h2>
               <p>Simple modification which adds Nitrous to the already in game vehicles with dynamic sound and visuals to support it.</p>
             </div>
           </a>
