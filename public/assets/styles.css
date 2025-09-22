@@ -146,13 +146,15 @@ main, footer{ position:relative; z-index:1 }
 .overlay{
   position:absolute; inset:auto 16px 16px 16px;
   background:rgba(0,0,0,.55); padding:16px 18px; border-radius:14px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 5; /* ensure overlay sits above the slide image */
 }
 
 /* Subtle glow on hover/focus for overlays */
 .overlay {
   transition: box-shadow 220ms cubic-bezier(.2,.9,.2,1), transform 220ms ease, background 220ms ease;
 }
-.overlay:hover, .overlay:focus-within {
+.overlay:hover, .overlay:focus-within,
+.slide a:hover .overlay, .slide a:focus .overlay, .slide a:focus-within .overlay {
   box-shadow: 0 8px 30px rgba(106,61,240,0.25), 0 2px 8px rgba(106,61,240,0.12) inset;
   transform: translateY(-2px);
   background: rgba(10,8,14,0.65);
