@@ -11,7 +11,7 @@
       both code and design. Outside of coding, I love music, art, and sharing ideas.
     </p>
     <p>
-  <a href="files/resume.pdf" target="_blank" rel="noopener noreferrer">View My Résumé</a>
+  <a href="files/resume.pdf" target="_blank" rel="noopener noreferrer" style="text-align: center;">View My Résumé</a>
     </p>
   </div>
 </section>

@@ -9,7 +9,7 @@
           <a href="https://plugb.ink/" target="_blank" rel="noopener noreferrer">
             <div class="overlay">
               <h2>PlugBio</h2>
-              <p>PlugBio is a music-focused landing-page platform I built that lets artists create sleek, shareable pages for their songs. It includes user accounts, customizable artist profiles, dynamic SEO/Open Graph previews for social sharing, and built-in analytics so creators can track page views and referrals.</p>
+              <p>PlugBio is a music-focused landing-page platform I built that lets artists create sleek, shareable pages for their songs. It includes user accounts, customizable artist profiles, and built-in analytics so creators can track page views and referrals.</p>
             </div>
           </a>
         </li>

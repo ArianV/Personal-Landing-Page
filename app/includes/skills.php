@@ -12,9 +12,19 @@
       <progress value="85" max="100">85%</progress>
     </article>
     <article class="skill">
+      <h3>PHP</h3>
+      <p>Desiging web pages and creating set functions inside the web page using PHP</p>
+      <progress value="90" max="100">90%</progress>
+    </article>
+    <article class="skill">
       <h3>JavaScript</h3>
       <p>Adding interactivity, animations, and dynamic features to websites.</p>
       <progress value="95" max="100">95%</progress>
+    </article>
+    <article class="skill">
+      <h3>C#</h3>
+      <p>Creating modifications for games such as Schedule I, and Roblox.</p>
+      <progress value="65" max="100">65%</progress>
     </article>
   </div>
 </section>
